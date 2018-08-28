@@ -26,7 +26,7 @@ class PokeBox extends React.Component {
   render(){
     return (
       <div>
-        
+        <SelectBox pokemons={this.state.pokemons}/>
       </div>
     );
   }
@@ -34,3 +34,5 @@ class PokeBox extends React.Component {
 }
 
 export default PokeBox;
+
+//{/* <Result selectedPokemon={this.state.selectedPokemon}/> */}
