@@ -16,12 +16,22 @@ class PokeBox extends React.Component {
   handlePokemonSelected(index) {
     const selectedPokemon = this.state.pokemons[index];
     fetch(selectedPokemon.url)
-     .then((res) => {
-      return res.json();
-     })
-     .then((pokeInfo) => {
-
-     })
+      .then((res) => {
+        return res.json();
+      })
+      .then((pokeInfo) => {
+        this.setState({selectedPokemon: {name: pokeInfo.forms[0].name}})
+        fetch(pokeInfo.forms[0].url)
+          .then((res) => {
+            return res.json();
+          })
+          .then((pokeForms) => {
+            const spriteURL = pokeForms.sprites.front_default;
+            const pokemonFullDets = this.state.selectedPokemon;
+            pokemonFullDets["sprite"] = spriteURL;
+            this.setState({selectedPokemon: pokemonFullDets})
+          })
+      })
     this.setState({selectedPokemon: selectedPokemon})
   }
 
@@ -41,7 +51,7 @@ class PokeBox extends React.Component {
     return (
       <div>
         <SelectBox pokemons={this.state.pokemons} onPokemonSelected={this.handlePokemonSelected}/>
-
+        <Result selectedPokemon={this.state.selectedPokemon}/>
       </div>
     );
   }
@@ -49,5 +59,3 @@ class PokeBox extends React.Component {
 }
 
 export default PokeBox;
-
-//{/* <Result selectedPokemon={this.state.selectedPokemon}/> */}
