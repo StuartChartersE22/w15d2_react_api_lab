@@ -20,15 +20,13 @@ class PokeBox extends React.Component {
         return res.json();
       })
       .then((pokeInfo) => {
-        this.setState({selectedPokemon: {name: pokeInfo.forms[0].name}})
         fetch(pokeInfo.forms[0].url)
           .then((res) => {
             return res.json();
           })
           .then((pokeForms) => {
             const spriteURL = pokeForms.sprites.front_default;
-            const pokemonFullDets = this.state.selectedPokemon;
-            pokemonFullDets["sprite"] = spriteURL;
+            const pokemonFullDets = {name: pokeForms.name, sprite: spriteURL};
             this.setState({selectedPokemon: pokemonFullDets})
           })
       })
