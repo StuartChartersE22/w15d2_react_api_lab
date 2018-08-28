@@ -15,17 +15,24 @@ class PokeBox extends React.Component {
 
   handlePokemonSelected(index) {
     const selectedPokemon = this.state.pokemons[index];
+    fetch(selectedPokemon.url)
+     .then((res) => {
+      return res.json();
+     })
+     .then((pokeInfo) => {
+
+     })
     this.setState({selectedPokemon: selectedPokemon})
   }
 
   componentDidMount() {
-    const url = 'https://pokeapi.co/api/v2/generation/1/'
+    const url = 'https://pokeapi.co/api/v2/pokemon/?limit=151'
     fetch(url)
      .then((res) => {
        return res.json();
      })
      .then((gen1Info) => {
-       const pokemons = gen1Info.pokemon_species
+       const pokemons = gen1Info.results
        this.setState({pokemons: pokemons})
      })
   }
@@ -34,6 +41,7 @@ class PokeBox extends React.Component {
     return (
       <div>
         <SelectBox pokemons={this.state.pokemons} onPokemonSelected={this.handlePokemonSelected}/>
+
       </div>
     );
   }
