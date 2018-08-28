@@ -9,6 +9,13 @@ class PokeBox extends React.Component {
       pokemons:[],
       selectedPokemon: null
     }
+
+    this.handlePokemonSelected = this.handlePokemonSelected.bind(this);
+  }
+
+  handlePokemonSelected(index) {
+    const selectedPokemon = this.state.pokemons[index];
+    this.setState({selectedPokemon: selectedPokemon})
   }
 
   componentDidMount() {
@@ -26,7 +33,7 @@ class PokeBox extends React.Component {
   render(){
     return (
       <div>
-        <SelectBox pokemons={this.state.pokemons}/>
+        <SelectBox pokemons={this.state.pokemons} onPokemonSelected={this.handlePokemonSelected}/>
       </div>
     );
   }
